@@ -1,12 +1,12 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
-// import { Container } from './styles';
+import Login from '../screen/Login';
 
 export const routes = createBrowserRouter([
   {
     path: '/',
-    element: <div> Hello World </div>,
+    element: <Login />,
   },
   {
     path: '/cadastro',
