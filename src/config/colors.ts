@@ -4,4 +4,5 @@ export const theme = {
   darkGray: '#1e1f2f',
   ligthGray: '#F6F6F6',
   error: '#E93F78',
+  background: '#030446',
 };

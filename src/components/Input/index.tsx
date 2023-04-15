@@ -14,7 +14,6 @@ const Input = ({
   isVisible,
   type,
   error,
-  ...props
 }: InputProps) => {
   return (
     <InputContainer>
