@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-use-before-define */
-/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -22,7 +21,7 @@ const Login = () => {
       password: '',
     },
     validationSchema: yup.object({
-      email: yup.string().required('Campo obrigatório'),
+      email: yup.string().email('Email inválido').required('Campo obrigatório'),
       password: yup
         .string()
         .required('Campo obrigatório')
