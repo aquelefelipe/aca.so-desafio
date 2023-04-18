@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-use-before-define */
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+
+import useWindowDimensions from '../../hooks/dimensions';
+
 import Input from '../../components/Input/index';
 import Button from '../../components/Button';
 import Wrapper from '../../components/Wrapper';
@@ -11,37 +14,28 @@ import Wrapper from '../../components/Wrapper';
 const Login = () => {
   const [email, setEmail] = useState<string>('');
   const [pass, setPass] = useState<string>('');
-  const [width, setWidth] = useState<number>(window.innerWidth);
-
-  // TODO: Criar um HOOK para saber qual WIDTH da tela
-  useEffect(() => {
-    window.addEventListener('resize', () => setWidth(window.innerWidth));
-    return window.removeEventListener('resize', () =>
-      setWidth(window.innerWidth)
-    );
-  });
+  const { width } = useWindowDimensions();
 
   return (
     <Wrapper>
       <Container>
         <Title>{width >= 768 ? 'L O G I N' : 'Login'}</Title>
-        <div style={{ width: '100%', marginTop: '50px' }}>
-          <Input
-            label="E-mail"
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="seu@email.com"
-            value={email}
-          />
-        </div>
-        <div style={{ width: '100%', margin: '25px 0px' }}>
-          <Input
-            label="Senha"
-            onChange={(e) => setPass(e.target.value)}
-            placeholder="abcd@1234"
-            value={pass}
-            type="password"
-          />
-        </div>
+
+        <Input
+          label="E-mail"
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="seu@email.com"
+          value={email}
+        />
+
+        <Input
+          label="Senha"
+          onChange={(e) => setPass(e.target.value)}
+          placeholder="abcd@1234"
+          value={pass}
+          type="password"
+        />
+
         <Button buttonType="primary" title="Entrar" onClick={() => {}} />
         <div
           style={{
@@ -66,22 +60,11 @@ const Login = () => {
   );
 };
 
-// const Wrapper = styled.div`
-//   height: 100vh;
-//   margin: 0;
-//   padding: 0;
-
-//   display: flex;
-//   justify-content: center;
-
-//   background-color: ${({ theme }) => theme.background};
-// `;
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
   margin: 50px;
   max-width: 500px;
