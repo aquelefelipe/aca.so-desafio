@@ -2,6 +2,7 @@ import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
 import Login from '../screen/Login';
+import Signup from '../screen/Signup';
 
 export const routes = createBrowserRouter([
   {
@@ -10,7 +11,7 @@ export const routes = createBrowserRouter([
   },
   {
     path: '/cadastro',
-    element: <div> Cadastro </div>,
+    element: <Signup />,
   },
   {
     path: '/confirmar-email',

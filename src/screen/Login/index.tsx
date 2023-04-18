@@ -1,19 +1,30 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-use-before-define */
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import Input from '../../components/Input/index';
 import Button from '../../components/Button';
+import Wrapper from '../../components/Wrapper';
 
 const Login = () => {
   const [email, setEmail] = useState<string>('');
   const [pass, setPass] = useState<string>('');
+  const [width, setWidth] = useState<number>(window.innerWidth);
+
+  // TODO: Criar um HOOK para saber qual WIDTH da tela
+  useEffect(() => {
+    window.addEventListener('resize', () => setWidth(window.innerWidth));
+    return window.removeEventListener('resize', () =>
+      setWidth(window.innerWidth)
+    );
+  });
 
   return (
     <Wrapper>
       <Container>
-        <Title>Login</Title>
+        <Title>{width >= 768 ? 'L O G I N' : 'Login'}</Title>
         <div style={{ width: '100%', marginTop: '50px' }}>
           <Input
             label="E-mail"
@@ -42,27 +53,29 @@ const Login = () => {
           }}
         >
           <CallToAction>Não posui conta na acaso?</CallToAction>
-          <Button
-            title="Criar um conta"
-            buttonType="secondary"
-            onClick={() => {}}
-          />
+          <Link style={{ width: '100%' }} to="cadastro">
+            <Button
+              title="Criar um conta"
+              buttonType="secondary"
+              onClick={() => {}}
+            />
+          </Link>
         </div>
       </Container>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div`
-  height: 100vh;
-  margin: 0;
-  padding: 0;
+// const Wrapper = styled.div`
+//   height: 100vh;
+//   margin: 0;
+//   padding: 0;
 
-  display: flex;
-  justify-content: center;
+//   display: flex;
+//   justify-content: center;
 
-  background-color: ${({ theme }) => theme.background};
-`;
+//   background-color: ${({ theme }) => theme.background};
+// `;
 
 const Container = styled.div`
   display: flex;
@@ -83,6 +96,10 @@ const Title = styled.span`
   text-align: center;
 
   color: ${({ theme }) => theme.white};
+
+  @media (min-width: 768px) {
+    font-size: 50px;
+  }
 `;
 
 const CallToAction = styled.span`
