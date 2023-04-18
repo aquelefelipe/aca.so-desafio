@@ -1,19 +1,33 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable react/require-default-props */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-use-before-define */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md';
-import { InputProps } from '../../Interfaces';
+
+interface InputProps {
+  label?: string;
+  placeholder?: string;
+  value?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  id?: string;
+  type?: string;
+  isVisible?: boolean;
+  error?: boolean;
+  errorMessagem?: string;
+}
 
 const Input = ({
+  id,
   label,
   placeholder,
   value,
   onChange,
   // isVisible,
   type = 'text',
-  error,
+  error = false,
+  errorMessagem,
 }: InputProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [inputType, setInputType] = useState<string>(type);
@@ -28,10 +42,12 @@ const Input = ({
       {label && <InputTitle>{label}</InputTitle>}
       <InputContainerWithButton>
         <InputStyle
+          id={id}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
           type={inputType}
+          error={error}
         />
         {type === 'password' && (
           <IconContainer onClick={handleInputVisibility}>
@@ -39,7 +55,7 @@ const Input = ({
           </IconContainer>
         )}
       </InputContainerWithButton>
-      {error && <ErrorFeedback>Senhas não coincidem </ErrorFeedback>}
+      {error && <ErrorFeedback>{errorMessagem}</ErrorFeedback>}
     </InputContainer>
   );
 };
@@ -63,11 +79,16 @@ const InputContainerWithButton = styled.div`
   }
 `;
 
-const InputStyle = styled.input`
+type InputStyleProps = {
+  error: boolean;
+};
+
+const InputStyle = styled.input<InputStyleProps>`
   width: 90%;
   max-width: 481px;
-  border: none;
   border-radius: 6px;
+  border: ${({ error, theme }) =>
+    error ? `2px solid ${theme.error}` : 'none'};
   background-color: ${(props) => props.theme.darkGray};
   padding: 16px 12px;
   margin: 8px 0px;
@@ -75,6 +96,10 @@ const InputStyle = styled.input`
 
   ::placeholder {
     color: ${(props) => props.theme.ligthGray};
+  }
+
+  :focus {
+    outline: none;
   }
 
   @media (min-width: 768px) {

@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable no-use-before-define */
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
@@ -7,7 +8,9 @@ import styled from 'styled-components';
 interface ButtonProps {
   buttonType: 'primary' | 'secondary';
   title: string;
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick: any;
+  // | ((event: React.MouseEvent<HTMLButtonElement>) => void)
+  // | ((event: React.FormEvent<HTMLFormElement>) => void);
 }
 
 interface ButtonStyle {

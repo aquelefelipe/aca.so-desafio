@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-use-before-define */
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 
 import useWindowDimensions from '../../hooks/dimensions';
 
@@ -12,9 +14,29 @@ import Button from '../../components/Button';
 import Wrapper from '../../components/Wrapper';
 
 const Login = () => {
-  const [email, setEmail] = useState<string>('');
-  const [pass, setPass] = useState<string>('');
   const { width } = useWindowDimensions();
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: yup.object({
+      email: yup.string().required('Campo obrigatório'),
+      password: yup
+        .string()
+        .required('Campo obrigatório')
+        .min(6, 'A senha deve ter pelo menos 6 caracteres')
+        .matches(
+          /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+          'A senha deve conter pelo menos uma letra e um número'
+        ),
+    }),
+    onSubmit: (values) => {
+      console.log(values);
+    },
+    validateOnChange: false,
+  });
 
   return (
     <Wrapper>
@@ -22,21 +44,31 @@ const Login = () => {
         <Title>{width >= 768 ? 'L O G I N' : 'Login'}</Title>
 
         <Input
+          id="email"
           label="E-mail"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={formik.handleChange}
           placeholder="seu@email.com"
-          value={email}
+          value={formik.values.email}
+          error={!!formik.errors.email}
+          errorMessagem={formik.errors.email}
         />
 
         <Input
+          id="password"
           label="Senha"
-          onChange={(e) => setPass(e.target.value)}
+          onChange={formik.handleChange}
           placeholder="abcd@1234"
-          value={pass}
+          value={formik.values.password}
           type="password"
+          error={!!formik.errors.password}
+          errorMessagem={formik.errors.password}
         />
 
-        <Button buttonType="primary" title="Entrar" onClick={() => {}} />
+        <Button
+          buttonType="primary"
+          title="Entrar"
+          onClick={formik.handleSubmit}
+        />
         <div
           style={{
             display: 'flex',
