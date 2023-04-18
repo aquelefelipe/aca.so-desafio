@@ -7,7 +7,7 @@ import { StoreProvider } from './store';
 function App() {
   return (
     <StoreProvider>
-      <RouterProvider router={routes} />;
+      <RouterProvider router={routes} />
     </StoreProvider>
   );
 }

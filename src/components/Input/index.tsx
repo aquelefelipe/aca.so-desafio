@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-use-before-define */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md';
@@ -11,10 +11,18 @@ const Input = ({
   placeholder,
   value,
   onChange,
-  isVisible,
-  type,
+  // isVisible,
+  type = 'text',
   error,
 }: InputProps) => {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [inputType, setInputType] = useState<string>(type);
+
+  const handleInputVisibility = () => {
+    setIsVisible((oldState) => !oldState);
+    setInputType(inputType === 'password' ? 'text' : 'password');
+  };
+
   return (
     <InputContainer>
       {label && <InputTitle>{label}</InputTitle>}
@@ -23,9 +31,10 @@ const Input = ({
           placeholder={placeholder}
           value={value}
           onChange={onChange}
+          type={inputType}
         />
         {type === 'password' && (
-          <IconContainer>
+          <IconContainer onClick={handleInputVisibility}>
             {isVisible ? <MdOutlineVisibility /> : <MdOutlineVisibilityOff />}
           </IconContainer>
         )}
@@ -39,13 +48,19 @@ const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  width: 100%;
 `;
 
 const InputContainerWithButton = styled.div`
   position: relative;
+  width: 100%;
+  padding: 0;
+  margin: 0;
 `;
 
 const InputStyle = styled.input`
+  width: 90%;
+  max-width: 481px;
   border: none;
   border-radius: 6px;
   background-color: ${(props) => props.theme.darkGray};
@@ -61,7 +76,7 @@ const InputStyle = styled.input`
 const IconContainer = styled.span`
   position: absolute;
   bottom: 12px;
-  right: 0;
+  right: 20px;
   padding: 8px;
   border: none;
   /* background-color: red; */
