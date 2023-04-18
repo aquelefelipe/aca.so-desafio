@@ -2,11 +2,12 @@
 /* eslint-disable no-use-before-define */
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
 import useWindowDimensions from '../../hooks/dimensions';
+import { RouteNames } from '../../router';
 
 import Input from '../../components/Input/index';
 import Button from '../../components/Button';
@@ -14,6 +15,11 @@ import Wrapper from '../../components/Wrapper';
 
 const Login = () => {
   const { width } = useWindowDimensions();
+  const navigate = useNavigate();
+
+  const handleRedirect = (route: string) => {
+    navigate(route);
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -78,13 +84,11 @@ const Login = () => {
           }}
         >
           <CallToAction>Não posui conta na acaso?</CallToAction>
-          <Link style={{ width: '100%' }} to="cadastro">
-            <Button
-              title="Criar um conta"
-              buttonType="secondary"
-              onClick={() => {}}
-            />
-          </Link>
+          <Button
+            title="Criar um conta"
+            buttonType="secondary"
+            onClick={() => handleRedirect(RouteNames.SIGNUP)}
+          />
         </div>
       </Container>
     </Wrapper>

@@ -2,20 +2,21 @@
 /* eslint-disable no-use-before-define */
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
 import useWindowDimensions from '../../hooks/dimensions';
+import { RouteNames } from '../../router';
 
 import Wrapper from '../../components/Wrapper';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-// import { Container } from './styles';
-
 const Signup: React.FC = () => {
   const { width } = useWindowDimensions();
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -49,6 +50,11 @@ const Signup: React.FC = () => {
     onSubmit: (values) => console.log(values),
     validateOnChange: false,
   });
+
+  const handleRedirect = (route: string) => {
+    navigate(route);
+  };
+
   return (
     <Wrapper>
       <Container>
@@ -109,13 +115,11 @@ const Signup: React.FC = () => {
             onClick={formik.handleSubmit}
           />
         </div>
-        <Link to="/" style={{ width: '100%' }}>
-          <Button
-            title="Voltar para login"
-            buttonType="secondary"
-            onClick={() => {}}
-          />
-        </Link>
+        <Button
+          title="Voltar para login"
+          buttonType="secondary"
+          onClick={() => handleRedirect(RouteNames.LOGIN)}
+        />
       </Container>
     </Wrapper>
   );

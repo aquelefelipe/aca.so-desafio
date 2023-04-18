@@ -4,21 +4,28 @@ import { createBrowserRouter } from 'react-router-dom';
 import Login from '../screen/Login';
 import Signup from '../screen/Signup';
 
+export const RouteNames = {
+  LOGIN: '/',
+  SIGNUP: '/cadastro',
+  CONFIRM_EMAIL: '/confirmar-cadastro',
+  HOME: '/home',
+};
+
 export const routes = createBrowserRouter([
   {
-    path: '/',
+    path: RouteNames.LOGIN,
     element: <Login />,
   },
   {
-    path: '/cadastro',
+    path: RouteNames.SIGNUP,
     element: <Signup />,
   },
   {
-    path: '/confirmar-email',
+    path: RouteNames.CONFIRM_EMAIL,
     element: <div> Confirmar email </div>,
   },
   {
-    path: '/home',
+    path: RouteNames.HOME,
     element: <div> Home </div>,
   },
 ]);
