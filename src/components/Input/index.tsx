@@ -56,6 +56,10 @@ const InputContainerWithButton = styled.div`
   width: 100%;
   padding: 0;
   margin: 0;
+
+  @media (min-width: 768px) {
+    max-width: 481px;
+  }
 `;
 
 const InputStyle = styled.input`
@@ -71,6 +75,10 @@ const InputStyle = styled.input`
   ::placeholder {
     color: ${(props) => props.theme.ligthGray};
   }
+
+  @media (min-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const IconContainer = styled.span`
@@ -83,6 +91,10 @@ const IconContainer = styled.span`
 
   svg {
     color: #fff;
+  }
+
+  @media (min-width: 768px) {
+    right: 0px;
   }
 `;
 
