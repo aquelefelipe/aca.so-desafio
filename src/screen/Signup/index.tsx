@@ -60,33 +60,41 @@ const Signup: React.FC = () => {
       <Container>
         <Title>{width >= 768 ? 'C A D A S T R O' : 'Cadastro'}</Title>
         <div style={{ width: '100%', marginTop: '50px' }}>
-          <Input
-            id="email"
-            label="E-mail"
-            onChange={formik.handleChange}
-            placeholder="seu@email.com"
-            value={formik.values.email}
-            error={!!formik.errors.email}
-            errorMessagem={formik.errors.email}
-          />
-          <Input
-            id="first_name"
-            label="Primeiro nome"
-            onChange={formik.handleChange}
-            placeholder=""
-            value={formik.values.first_name}
-            error={!!formik.errors.first_name}
-            errorMessagem={formik.errors.first_name}
-          />
-          <Input
-            id="last_name"
-            label="Último nome"
-            onChange={formik.handleChange}
-            placeholder=""
-            value={formik.values.last_name}
-            error={!!formik.errors.last_name}
-            errorMessagem={formik.errors.last_name}
-          />
+          <InputsContainer>
+            <Input
+              id="email"
+              label="E-mail*"
+              onChange={formik.handleChange}
+              placeholder="seu@email.com"
+              value={formik.values.email}
+              error={!!formik.errors.email}
+              errorMessagem={formik.errors.email}
+            />
+            <PersonalInputsContainer>
+              <SpaceContainer>
+                <Input
+                  id="first_name"
+                  label="Primeiro nome*"
+                  onChange={formik.handleChange}
+                  placeholder=""
+                  value={formik.values.first_name}
+                  error={!!formik.errors.first_name}
+                  errorMessagem={formik.errors.first_name}
+                />
+              </SpaceContainer>
+              <SpaceContainer>
+                <Input
+                  id="last_name"
+                  label="Último nome*"
+                  onChange={formik.handleChange}
+                  placeholder=""
+                  value={formik.values.last_name}
+                  error={!!formik.errors.last_name}
+                  errorMessagem={formik.errors.last_name}
+                />
+              </SpaceContainer>
+            </PersonalInputsContainer>
+          </InputsContainer>
           <Input
             id="password"
             label="Senha*"
@@ -148,6 +156,33 @@ const Container = styled.div`
   width: 100%;
   margin: 50px;
   max-width: 500px;
+`;
+
+const InputsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    flex-direction: column-reverse;
+  }
+`;
+
+const PersonalInputsContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+`;
+
+const SpaceContainer = styled.div`
+  width: 100%;
+  @media (min-width: 768px) {
+    width: 45%;
+  }
 `;
 
 export default Signup;

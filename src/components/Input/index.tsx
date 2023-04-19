@@ -73,10 +73,6 @@ const InputContainerWithButton = styled.div`
   width: 100%;
   padding: 0;
   margin: 0;
-
-  @media (min-width: 768px) {
-    max-width: 481px;
-  }
 `;
 
 type InputStyleProps = {
@@ -84,8 +80,8 @@ type InputStyleProps = {
 };
 
 const InputStyle = styled.input<InputStyleProps>`
-  width: 90%;
-  max-width: 481px;
+  width: 100%;
+  box-sizing: border-box;
   border-radius: 6px;
   border: ${({ error, theme }) =>
     error ? `2px solid ${theme.error}` : 'none'};
@@ -100,10 +96,6 @@ const InputStyle = styled.input<InputStyleProps>`
 
   :focus {
     outline: none;
-  }
-
-  @media (min-width: 768px) {
-    width: 100%;
   }
 `;
 
