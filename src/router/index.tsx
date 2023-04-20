@@ -4,6 +4,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Login from '../screen/Login';
 import Signup from '../screen/Signup';
 import ConfirmEmail from '../screen/ConfirmEmail';
+import Home from '../screen/Home';
 
 export const RouteNames = {
   LOGIN: '/',
@@ -27,7 +28,7 @@ export const routes = createBrowserRouter([
   },
   {
     path: RouteNames.HOME,
-    element: <div> Home </div>,
+    element: <Home />,
   },
 ]);
 

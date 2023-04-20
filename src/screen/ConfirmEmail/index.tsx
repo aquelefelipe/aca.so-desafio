@@ -4,15 +4,25 @@
 /* eslint-disable no-use-before-define */
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import { useLocation } from 'react-router-dom';
 
 import useWindowDimensions from '../../hooks/dimensions';
+import useAuth from '../../requests/auth';
+
 import Wrapper from '../../components/Wrapper';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Acaso from '../../images/acaso.png';
 
 const ConfirmEmail: React.FC = () => {
+  const location = useLocation();
   const { width } = useWindowDimensions();
+  const { confirmSignUpPOSTRequest } = useAuth();
+
+  const { email } = location.state();
+
   const formik = useFormik({
     initialValues: {
       code: '',
@@ -20,7 +30,11 @@ const ConfirmEmail: React.FC = () => {
     validationSchema: yup.object({
       code: yup.string().required('Campo obrigatório'),
     }),
-    onSubmit: (values) => console.log(values),
+    onSubmit: (values) =>
+      confirmSignUpPOSTRequest({
+        email,
+        confirmation_code: values.code,
+      }),
   });
 
   return (
@@ -45,7 +59,7 @@ const ConfirmEmail: React.FC = () => {
           <Button
             title="Confirmar e-mail"
             buttonType="primary"
-            onClick={() => {}}
+            onClick={formik.handleSubmit}
           />
           <Text>Não recebeu o código?</Text>
           <Button

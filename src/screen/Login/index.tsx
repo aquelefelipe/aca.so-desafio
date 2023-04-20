@@ -8,6 +8,7 @@ import * as yup from 'yup';
 
 import useWindowDimensions from '../../hooks/dimensions';
 import { RouteNames } from '../../router';
+import useAuth from '../../requests/auth';
 
 import Input from '../../components/Input/index';
 import Button from '../../components/Button';
@@ -18,6 +19,7 @@ import Acaso from '../../images/acaso.png';
 const Login = () => {
   const { width } = useWindowDimensions();
   const navigate = useNavigate();
+  const { loginPOSTRequest } = useAuth();
 
   const handleRedirect = (route: string) => {
     navigate(route);
@@ -40,7 +42,7 @@ const Login = () => {
         ),
     }),
     onSubmit: (values) => {
-      console.log(values);
+      loginPOSTRequest(values);
     },
     validateOnChange: false,
   });
