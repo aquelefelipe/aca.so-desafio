@@ -1,11 +1,18 @@
-import React from 'react';
+/* eslint-disable no-extra-boolean-cast */
+import React, { useEffect } from 'react';
 
-import useAuth from '../../requests/auth';
-// import { Container } from './styles';
+import useUser from '../../requests/user';
 
 const Home: React.FC = () => {
-  const { state } = useAuth();
-  console.log('User: ', state.user);
+  const { state, userInfoGETRequest, userPOSTRequest } = useUser();
+
+  useEffect(() => {
+    userPOSTRequest();
+    if (state.user && state.user.id) {
+      userInfoGETRequest({ userId: state.user?.id });
+    }
+  }, [state.user]);
+
   return <div>HOME</div>;
 };
 

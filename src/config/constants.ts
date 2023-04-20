@@ -9,6 +9,8 @@ const URLRequest = {
   SIGN_UP: '/auth/sign-up',
   LOGIN: '/auth/login',
   CONFIRM_EMAIL: '/auth/confirm-sign-up',
+  CREATE_USER: '/user',
+  USER_INFO: (userId: string) => `/user/${userId}`,
 };
 
 const handleStorageIdToken = (idToken: string) =>
