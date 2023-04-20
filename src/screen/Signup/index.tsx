@@ -8,6 +8,7 @@ import * as yup from 'yup';
 
 import useWindowDimensions from '../../hooks/dimensions';
 import { RouteNames } from '../../router';
+import useAuth from '../../requests/auth';
 
 import Wrapper from '../../components/Wrapper';
 import Input from '../../components/Input';
@@ -17,6 +18,7 @@ import Acaso from '../../images/acaso.png';
 const Signup: React.FC = () => {
   const { width } = useWindowDimensions();
   const navigate = useNavigate();
+  const { signUpPOSTRequest } = useAuth();
 
   const formik = useFormik({
     initialValues: {
@@ -48,7 +50,7 @@ const Signup: React.FC = () => {
         )
         .oneOf([yup.ref('password')], 'As senhas devem ser iguais'),
     }),
-    onSubmit: (values) => console.log(values),
+    onSubmit: (values) => signUpPOSTRequest(values),
     validateOnChange: false,
   });
 

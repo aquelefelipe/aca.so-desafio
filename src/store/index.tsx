@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useReducer } from 'react';
 
 interface State {
-  data: any;
+  data?: any;
   loading: boolean;
   error: boolean;
 }
@@ -10,10 +10,22 @@ interface StoreProviderProps {
   children: React.ReactNode;
 }
 
-type Action =
-  | { type: 'FETCH_START' }
-  | { type: 'FETCH_SUCCESS'; payload: any }
-  | { type: 'FETCH_ERROR' };
+const ActionType = {
+  // SIGN UP
+  SIGNUP_START: 'SIGNUP_START',
+  SIGNUP_SUCCESS: 'SIGNUP_SUCCESS',
+  SIGNUP_ERROR: 'SIGNUP_ERROR',
+  // LOGIN
+  LOGIN_START: 'LOGIN_START',
+  LOGIN_SUCCESS: 'LOGIN_SUCCESS',
+  LOGIN_ERROR: 'LOGIN_ERROR',
+  // CONFIRM EMAIL
+  CONFIRM_EMAIL_START: 'CONFIRM_EMAIL_START',
+  CONFIRM_EMAIL_SUCCESS: 'CONFIRM_EMAIL_SUCCESS',
+  CONFIRM_EMAIL_ERROR: 'CONFIRM_EMAIL_ERROR',
+};
+
+type Action = { type: string; payload?: any };
 
 type Dispatch = (action: Action) => void;
 
@@ -28,14 +40,14 @@ const DispatchContext = createContext<Dispatch | undefined>(undefined);
 
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
-    case 'FETCH_START':
+    case ActionType.SIGNUP_START:
       return {
         ...state,
         loading: true,
         error: false,
       };
 
-    case 'FETCH_SUCCESS':
+    case ActionType.SIGNUP_SUCCESS:
       return {
         ...state,
         data: action.payload,
@@ -43,7 +55,51 @@ const reducer = (state: State, action: Action) => {
         error: false,
       };
 
-    case 'FETCH_ERROR':
+    case ActionType.SIGNUP_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: true,
+      };
+
+    case ActionType.LOGIN_START:
+      return {
+        ...state,
+        loading: true,
+        error: false,
+      };
+
+    case ActionType.LOGIN_SUCCESS:
+      return {
+        ...state,
+        data: action.payload,
+        loading: false,
+        error: false,
+      };
+
+    case ActionType.LOGIN_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: true,
+      };
+
+    case ActionType.CONFIRM_EMAIL_START:
+      return {
+        ...state,
+        loading: true,
+        error: false,
+      };
+
+    case ActionType.CONFIRM_EMAIL_SUCCESS:
+      return {
+        ...state,
+        data: action.payload,
+        loading: false,
+        error: false,
+      };
+
+    case ActionType.CONFIRM_EMAIL_ERROR:
       return {
         ...state,
         loading: false,
@@ -89,4 +145,4 @@ const useStoreDispatch = () => {
   return dispatch;
 };
 
-export { StoreProvider, useStoreDispatch, useStoreState };
+export { StoreProvider, useStoreDispatch, useStoreState, ActionType };
