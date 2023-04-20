@@ -1,9 +1,18 @@
 import React, { createContext, useContext, useReducer } from 'react';
 
+interface User {
+  id: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  onboard_complete: string;
+  group: string[];
+}
 interface State {
   data?: any;
   loading: boolean;
   error: boolean;
+  user?: User;
 }
 
 interface StoreProviderProps {
@@ -33,6 +42,7 @@ const InitialState: State = {
   data: null,
   loading: false,
   error: false,
+  user: undefined,
 };
 
 const StateContext = createContext<State | undefined>(undefined);
@@ -72,7 +82,7 @@ const reducer = (state: State, action: Action) => {
     case ActionType.LOGIN_SUCCESS:
       return {
         ...state,
-        data: action.payload,
+        user: action.payload,
         loading: false,
         error: false,
       };

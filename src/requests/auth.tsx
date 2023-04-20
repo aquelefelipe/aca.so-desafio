@@ -2,9 +2,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { api, URLRequest } from './index';
+import { api } from './index';
 import { useStoreState, useStoreDispatch, ActionType } from '../store';
 import { RouteNames } from '../router';
+import {
+  URLRequest,
+  handleStorageAccessToken,
+  handleStorageIdToken,
+  handleStorageRefreshToken,
+} from '../config/constants';
 
 interface AuthSignUp {
   email: string;
@@ -44,9 +50,10 @@ const useAuth = () => {
         data: { email, first_name, last_name, password, auth_token },
       });
       if (response.status === 200) {
-        console.log('response: ', response.data);
         navigate(RouteNames.CONFIRM_EMAIL, { state: { email } });
-        dispatch({ type: ActionType.SIGNUP_SUCCESS, payload: 'SUCESSO' });
+        dispatch({
+          type: ActionType.SIGNUP_SUCCESS,
+        });
       }
     } catch (error) {
       dispatch({ type: ActionType.SIGNUP_ERROR });
@@ -62,13 +69,17 @@ const useAuth = () => {
         data: { email, password },
       });
       if (response.status === 200) {
-        dispatch({ type: ActionType.LOGIN_SUCCESS });
+        dispatch({
+          type: ActionType.LOGIN_SUCCESS,
+          payload: response.data.user,
+        });
+        handleStorageAccessToken(response.data.token.access_token);
+        handleStorageRefreshToken(response.data.token.refresh_token);
+        handleStorageIdToken(response.data.token.id_token);
         navigate(RouteNames.HOME);
-        console.log('LOGIN RESPONSE: ', response.data);
       }
     } catch (error) {
       dispatch({ type: ActionType.LOGIN_ERROR });
-      console.log('LOGIN ERROR: ', error);
     }
   };
 
@@ -86,11 +97,9 @@ const useAuth = () => {
       if (response.status === 200) {
         dispatch({ type: ActionType.CONFIRM_EMAIL_SUCCESS, payload: true });
         navigate(RouteNames.HOME);
-        console.log('CONFIRM EMAIL RESPONSE: ', response.data);
       }
     } catch (error) {
       dispatch({ type: ActionType.CONFIRM_EMAIL_ERROR });
-      console.log('CONFIRM EMAIL ERROR: ', error);
     }
   };
 
