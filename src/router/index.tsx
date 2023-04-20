@@ -2,22 +2,31 @@ import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
 import Login from '../screen/Login';
+import Signup from '../screen/Signup';
+import ConfirmEmail from '../screen/ConfirmEmail';
+
+export const RouteNames = {
+  LOGIN: '/',
+  SIGNUP: '/cadastro',
+  CONFIRM_EMAIL: '/confirmar-cadastro',
+  HOME: '/home',
+};
 
 export const routes = createBrowserRouter([
   {
-    path: '/',
+    path: RouteNames.LOGIN,
     element: <Login />,
   },
   {
-    path: '/cadastro',
-    element: <div> Cadastro </div>,
+    path: RouteNames.SIGNUP,
+    element: <Signup />,
   },
   {
-    path: '/confirmar-email',
-    element: <div> Confirmar email </div>,
+    path: RouteNames.CONFIRM_EMAIL,
+    element: <ConfirmEmail />,
   },
   {
-    path: '/home',
+    path: RouteNames.HOME,
     element: <div> Home </div>,
   },
 ]);

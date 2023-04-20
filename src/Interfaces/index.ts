@@ -2,7 +2,7 @@ export interface InputProps {
   label?: string;
   placeholder?: string;
   value?: string;
-  onChange?: () => void;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   id?: string;
   type?: string;
   isVisible?: boolean;

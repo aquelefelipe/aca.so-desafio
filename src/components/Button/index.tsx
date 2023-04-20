@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable no-use-before-define */
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
@@ -7,7 +8,9 @@ import styled from 'styled-components';
 interface ButtonProps {
   buttonType: 'primary' | 'secondary';
   title: string;
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick: any;
+  // | ((event: React.MouseEvent<HTMLButtonElement>) => void)
+  // | ((event: React.FormEvent<HTMLFormElement>) => void);
 }
 
 interface ButtonStyle {
@@ -23,14 +26,19 @@ const Button = ({ title, buttonType, onClick }: ButtonProps) => {
 };
 
 const ButtonStyle = styled.button<ButtonStyle>`
+  width: 100%;
   background-color: ${({ buttonType, theme }) =>
     buttonType === 'primary' ? theme.white : 'rgba(255, 255, 255, 0.1)'};
   color: ${({ buttonType, theme }) =>
     buttonType === 'primary' ? theme.black : theme.white};
-  padding: 10px 20px;
+  padding: 17px 20px;
   border: none;
   border-radius: 30.5px;
-  font-size: 16px;
+  
+  font-size: 12px;
+  font-family: 'Raleway'
+  font-style: normal;
+  font-weight: 700;
 
   :active {
     opacity: 0.5;
