@@ -12,6 +12,7 @@ import { RouteNames } from '../../router';
 import Wrapper from '../../components/Wrapper';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Acaso from '../../images/acaso.png';
 
 const Signup: React.FC = () => {
   const { width } = useWindowDimensions();
@@ -58,6 +59,7 @@ const Signup: React.FC = () => {
   return (
     <Wrapper>
       <Container>
+        <Image src={Acaso} />
         <Title>{width >= 768 ? 'C A D A S T R O' : 'Cadastro'}</Title>
         <div style={{ width: '100%', marginTop: '50px' }}>
           <InputsContainer>
@@ -183,6 +185,12 @@ const SpaceContainer = styled.div`
   @media (min-width: 768px) {
     width: 45%;
   }
+`;
+
+const Image = styled.img`
+  width: 120px;
+  object-fit: contain;
+  margin-bottom: 80px;
 `;
 
 export default Signup;

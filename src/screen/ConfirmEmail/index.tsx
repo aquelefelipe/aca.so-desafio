@@ -9,13 +9,24 @@ import useWindowDimensions from '../../hooks/dimensions';
 import Wrapper from '../../components/Wrapper';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Acaso from '../../images/acaso.png';
 
 const ConfirmEmail: React.FC = () => {
   const { width } = useWindowDimensions();
+  const formik = useFormik({
+    initialValues: {
+      code: '',
+    },
+    validationSchema: yup.object({
+      code: yup.string().required('Campo obrigatório'),
+    }),
+    onSubmit: (values) => console.log(values),
+  });
 
   return (
     <Wrapper>
       <Container>
+        <Image src={Acaso} />
         <Title>
           {width < 768
             ? `Confirmar \n email`
@@ -24,11 +35,11 @@ const ConfirmEmail: React.FC = () => {
         <Input
           id="code"
           label="Código"
-          // onChange={formik.handleChange}
+          onChange={formik.handleChange}
           placeholder="Digite o código recebido"
-          // value={formik.values.email}
-          // error={!!formik.errors.email}
-          // errorMessagem={formik.errors.email}
+          value={formik.values.code}
+          error={!!formik.errors.code}
+          errorMessagem={formik.errors.code}
         />
         <ButtonsContainer>
           <Button
@@ -95,4 +106,11 @@ const ButtonsContainer = styled.div`
     max-width: 328px;
   }
 `;
+
+const Image = styled.img`
+  width: 120px;
+  object-fit: contain;
+  margin-bottom: 80px;
+`;
+
 export default ConfirmEmail;

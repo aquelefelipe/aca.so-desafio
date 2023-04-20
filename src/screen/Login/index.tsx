@@ -13,6 +13,8 @@ import Input from '../../components/Input/index';
 import Button from '../../components/Button';
 import Wrapper from '../../components/Wrapper';
 
+import Acaso from '../../images/acaso.png';
+
 const Login = () => {
   const { width } = useWindowDimensions();
   const navigate = useNavigate();
@@ -46,6 +48,7 @@ const Login = () => {
   return (
     <Wrapper>
       <Container>
+        <Image src={Acaso} alt="acaso logo" />
         <Title>{width >= 768 ? 'L O G I N' : 'Login'}</Title>
 
         <Input
@@ -130,6 +133,12 @@ const CallToAction = styled.span`
   line-height: 18px;
   color: ${({ theme }) => theme.white};
   margin-bottom: 10px;
+`;
+
+const Image = styled.img`
+  width: 120px;
+  object-fit: contain;
+  margin-bottom: 80px;
 `;
 
 export default Login;
